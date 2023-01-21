@@ -49,6 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void onResetPressed() {
+    timer.cancel();
+    setState(() {
+      isRunning = false;
+      totalSeconds = twentyFiveMinutes;
+    });
+  }
+
   String format(int seconds) {
     var duration = Duration(seconds: seconds);
 
@@ -99,23 +107,45 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'Pomodoros',
-                          style: TextStyle(
+                        TextButton(
+                          onPressed: onResetPressed,
+                          style: TextButton.styleFrom(
+                              textStyle: TextStyle(
+                            color: Theme.of(context).textTheme.headline1!.color,
                             fontSize: 20,
-                            color: Theme.of(context).textTheme.headline1!.color,
-                            fontWeight: FontWeight.w600,
-                          ),
+                            fontWeight: FontWeight.w500,
+                          )),
+                          child: const Text("Reset Timer"),
                         ),
-                        Text(
-                          '$totalPomodoros',
-                          style: TextStyle(
-                            fontSize: 58,
-                            color: Theme.of(context).textTheme.headline1!.color,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Pomodoros',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .color,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Text(
+                              '$totalPomodoros',
+                              style: TextStyle(
+                                fontSize: 58,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .color,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
